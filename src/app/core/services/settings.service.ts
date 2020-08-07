@@ -11,7 +11,7 @@ export class SettingsService {
 
   getColumnDefs$(): Observable<IColumnDef[]> {
     return of([
-      { headerName: 'ID', field: 'id' },
+      { headerName: 'ID', field: 'id', checkboxSelection: true },
       { headerName: 'Latitude', field: 'latitude' },
       { headerName: 'Longitude', field: 'longitude' }
     ]);

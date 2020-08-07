@@ -1,15 +1,15 @@
 <h2>Liste</h2>
 
-<ag-grid-angular *ngIf="data$ | async as data" style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="data.assets"
-    [columnDefs]="data.columnDefs">
+<ag-grid-angular *ngIf="data$ | async as data" #agGrid style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="data.assets"
+    [columnDefs]="data.columnDefs" rowSelection="multiple">
 </ag-grid-angular>
 
-<ul *ngIf="selectedAssets$ | async as selectedAssets">
+<!-- <ul *ngIf="selectedAssets$ | async as selectedAssets">
     <li *ngFor="let selectedAsset of selectedAssets">
         {{ selectedAsset | json }}
     </li>
-</ul>
+</ul> -->
 
 <button type="button" mat-raised-button color="primary" (click)="selectAssets()">
-    Selektieren von Liste
+    Selektieren auf Karte
 </button>

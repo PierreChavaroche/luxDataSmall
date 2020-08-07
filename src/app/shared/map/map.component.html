@@ -1,11 +1,13 @@
-<h2>Karte</h2>
+<div class="map">
+    <h2>Karte</h2>
 
-<ul *ngIf="selectedAssets$ | async as selectedAssets">
-    <li *ngFor="let selectedAsset of selectedAssets">
-        {{ selectedAsset | json }}
-    </li>
-</ul>
+    <ul *ngIf="selectedAssets$ | async as selectedAssets">
+        <li *ngFor="let selectedAsset of selectedAssets">
+            {{ selectedAsset | json }}
+        </li>
+    </ul>
 
-<button type="button" mat-raised-button color="primary" (click)="selectAssets()">
-    Selektieren von Karte
-</button>
+    <button type="button" mat-raised-button color="primary" (click)="selectAssets()">
+        Selektieren von Karte
+    </button>
+</div>
