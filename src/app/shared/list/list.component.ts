@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsSelectService } from '../../core/services/assets-select.service';
 import { IAsset } from '../asset/asset.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -8,10 +9,12 @@ import { IAsset } from '../asset/asset.interface';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  selectedAssets$: Observable<IAsset[]>;
 
   constructor(private assetsSelectService: AssetsSelectService) { }
 
   ngOnInit(): void {
+    this.selectedAssets$ = this.assetsSelectService.selected$;
   }
 
   selectAssets() {

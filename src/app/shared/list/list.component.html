@@ -1,6 +1,11 @@
-<p>list works!</p>
+<h2>Liste</h2>
 
+<ul *ngIf="selectedAssets$ | async as selectedAssets">
+    <li *ngFor="let selectedAsset of selectedAssets">
+        {{ selectedAsset | json }}
+    </li>
+</ul>
 
 <button type="button" mat-raised-button color="primary" (click)="selectAssets()">
-    Selektieren
+    Selektieren von Liste
 </button>
