@@ -21,24 +21,18 @@ export class MapComponent implements OnInit {
     const assets: IAsset[] = [
       {
         id: '4',
-        coordinates: {
-          latitude: 4,
-          longitude: 4
-        }
+        latitude: 4,
+        longitude: 4
       },
       {
         id: '5',
-        coordinates: {
-          latitude: 5,
-          longitude: 5
-        }
+        latitude: 5,
+        longitude: 5
       },
       {
         id: '6',
-        coordinates: {
-          latitude: 6,
-          longitude: 6
-        }
+        latitude: 6,
+        longitude: 6
       }
     ];
 

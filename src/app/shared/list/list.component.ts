@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsSelectService } from '../../core/services/assets-select.service';
+import { AssetService } from '../../core/services/asset.service';
+import { SettingsService } from '../../core/services/settings.service';
 import { IAsset } from '../asset/asset.interface';
-import { Observable } from 'rxjs';
+import { IColumnDef } from './column-def.interface';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -11,35 +15,33 @@ import { Observable } from 'rxjs';
 export class ListComponent implements OnInit {
   selectedAssets$: Observable<IAsset[]>;
 
-  constructor(private assetsSelectService: AssetsSelectService) { }
+  data$: Observable<{
+    assets: IAsset[],
+    columnDefs: IColumnDef[]
+  }>;
+
+  constructor(private assetService: AssetService, private settingsService: SettingsService,
+    private assetsSelectService: AssetsSelectService) { }
 
   ngOnInit(): void {
     this.selectedAssets$ = this.assetsSelectService.selected$;
+
+    this.data$ = combineLatest([
+      this.assetService.getData$(),
+      this.settingsService.getColumnDefs$()
+    ]).pipe(
+      map(([assets, columnDefs]) => {
+        return {
+          assets,
+          columnDefs
+        }
+      })
+    )
   }
 
   selectAssets() {
     const assets: IAsset[] = [
-      {
-        id: '1',
-        coordinates: {
-          latitude: 1,
-          longitude: 1
-        }
-      },
-      {
-        id: '2',
-        coordinates: {
-          latitude: 2,
-          longitude: 2
-        }
-      },
-      {
-        id: '2',
-        coordinates: {
-          latitude: 2,
-          longitude: 2
-        }
-      }
+
     ];
 
     this.assetsSelectService.add(assets);
