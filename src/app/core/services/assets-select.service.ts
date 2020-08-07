@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { IAsset } from '../../shared/asset/asset.interface';
+import { startWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class AssetsSelectService {
   selected$: Observable<IAsset[]>
 
   constructor() {
-    this.selected$ = this.selectedSource.asObservable();
+    this.selected$ = this.selectedSource.asObservable().pipe(
+      startWith(this.selected)
+    );
   }
 
   add(assets: IAsset[]) {
