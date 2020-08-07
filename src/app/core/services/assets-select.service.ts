@@ -16,6 +16,7 @@ export class AssetsSelectService {
 
   add(assets: IAsset[]) {
     if (assets && assets.length) {
+      this.reset(false);
       this.selected.push(...assets);
       this.broadcast();
     }
@@ -31,9 +32,12 @@ export class AssetsSelectService {
     }
   }
 
-  reset() {
+  reset(withBroadCast: boolean = true) {
     this.selected.length = 0;
-    this.broadcast();
+
+    if (withBroadCast) {
+      this.broadcast();
+    }
   }
 
   private broadcast() {
