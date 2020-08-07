@@ -22,24 +22,45 @@ export class ListComponent implements OnInit {
   }>;
 
   @ViewChild('agGrid') private agGrid: AgGridAngular;
+  private gridParams;
 
   constructor(private assetService: AssetService, private settingsService: SettingsService,
     private assetsSelectService: AssetsSelectService) { }
 
   ngOnInit(): void {
-    this.selectedAssets$ = this.assetsSelectService.selected$;
+    this.selectedAssets$ = this.assetsSelectService.selected$.pipe(
+
+    );
 
     this.data$ = combineLatest([
       this.assetService.getData$(),
-      this.settingsService.getColumnDefs$()
+      this.settingsService.getColumnDefs$(),
+      this.selectedAssets$
     ]).pipe(
-      map(([assets, columnDefs]) => {
+      map(([assets, columnDefs, selectedAssets]) => {
+        if (selectedAssets && this.gridParams) {
+          this.gridParams.api.forEachNode(node => {
+            if (node) {
+              if (node.data && node.data.id && selectedAssets.find((selectedAsset) => selectedAsset.id === node.data.id)) {
+                node.setSelected(true);
+              } else {
+                node.setSelected(false);
+              }
+            }
+          });
+        }
+
         return {
           assets,
           columnDefs
         }
       })
     )
+  }
+
+  onReady(params) {
+    params.api.sizeColumnsToFit();
+    this.gridParams = params;
   }
 
   selectAssets() {

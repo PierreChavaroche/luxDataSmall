@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AssetsSelectService } from 'src/app/core/services/assets-select.service';
 import { Observable } from 'rxjs';
 import { IAsset } from '../asset/asset.interface';
+import { AssetService } from 'src/app/core/services/asset.service';
+import { filter, map, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map-shared',
@@ -11,31 +13,17 @@ import { IAsset } from '../asset/asset.interface';
 export class MapComponent implements OnInit {
   selectedAssets$: Observable<IAsset[]>;
 
-  constructor(private assetsSelectService: AssetsSelectService) { }
+  constructor(private assetService: AssetService, private assetsSelectService: AssetsSelectService) { }
 
   ngOnInit(): void {
     this.selectedAssets$ = this.assetsSelectService.selected$;
   }
 
-  selectAssets() {
-    const assets: IAsset[] = [
-      {
-        id: '4',
-        latitude: 4,
-        longitude: 4
-      },
-      {
-        id: '5',
-        latitude: 5,
-        longitude: 5
-      },
-      {
-        id: '6',
-        latitude: 6,
-        longitude: 6
-      }
-    ];
-
-    this.assetsSelectService.add(assets);
+  async selectAssets() {
+    await this.assetService.getData$().pipe(
+      map(assets => assets.filter(asset => asset.id === '2' || asset.id === '3')),
+      tap(assets => this.assetsSelectService.add(assets)),
+      take(1)
+    ).toPromise();
   }
 }

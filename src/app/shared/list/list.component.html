@@ -1,7 +1,7 @@
 <h2>Liste</h2>
 
 <ag-grid-angular *ngIf="data$ | async as data" #agGrid style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="data.assets"
-    [columnDefs]="data.columnDefs" rowSelection="multiple">
+    [columnDefs]="data.columnDefs" rowSelection="multiple" (gridReady)="onReady($event)">
 </ag-grid-angular>
 
 <!-- <ul *ngIf="selectedAssets$ | async as selectedAssets">
