@@ -1,1 +1,7 @@
 <p>map works!</p>
+
+<ul *ngIf="selectedAssets$ | async as selectedAssets">
+    <li *ngFor="let selectedAsset of selectedAssets">
+        {{ selectedAsset | json }}
+    </li>
+</ul>
