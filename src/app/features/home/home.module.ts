@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { MapModule } from '../shared/map/map.module';
-import { ListModule } from '../shared/list/list.module';
+import { MapModule } from '../../shared/map/map.module';
+import { ListModule } from '../../shared/list/list.module';
 
 
 @NgModule({
